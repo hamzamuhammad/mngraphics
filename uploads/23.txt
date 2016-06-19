@@ -1,0 +1,436 @@
+commands to set up database:
+
+CREATE DATABASE accounts;
+USE accounts;
+GRANT ALL ON accounts.* TO 'admin'@'localhost' IDENTIFIED BY 'stephcurrywiththeshotboi6666ovosoundradio';
+
+REMEMBER TO LOG IN WITH THE USER/PASS MADE ABOVE!!!!
+
+CREATE TABLE users (
+    first_name VARCHAR(64),
+    last_name VARCHAR(64),
+    company_name VARCHAR(64),
+    phone_number VARCHAR(16),
+    email_address VARCHAR(64),
+    user_password VARCHAR(64),
+    INDEX(first_name(8)),
+    INDEX(last_name(8)),
+    INDEX(company_name(8)),
+    INDEX(phone_number(8)),
+    PRIMARY KEY (email_address)) ENGINE MyISAM;
+
+     CREATE TABLE files (
+    email_address VARCHAR(64),
+    file_name VARCHAR(8),
+    date_uploaded INT,
+    PRIMARY KEY (email_address)) ENGINE MyISAM;
+
+
+
+
+
+ UPDATE files
+    -> SET comments='trash'
+    -> WHERE email_address='mmussadaq@gmail.com';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\
+
+Microsoft Windows [Version 10.0.10586]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Users\hamzam>"C:\Program Files (x86)\Zend\MySQL55\bin\mysql" -u admin -p
+Enter password: *****************************************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.5.44 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE accounts
+Database changed
+mysql> DESCRIBE users
+    -> ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| first_name    | varchar(64) | YES  | MUL | NULL    |       |
+| last_name     | varchar(64) | YES  | MUL | NULL    |       |
+| company_name  | varchar(64) | YES  | MUL | NULL    |       |
+| phone_number  | varchar(16) | YES  | MUL | NULL    |       |
+| email_address | varchar(64) | NO   | PRI |         |       |
+| user_password | varchar(64) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT ALL * FROM users
+    -> ;
++------------+-----------+--------------+--------------+--------------------------+---------------+
+| first_name | last_name | company_name | phone_number | email_address            | user_password |
++------------+-----------+--------------+--------------+--------------------------+---------------+
+| Hamza      | Muhammad  | Facebook     | 512-850-7437 | hamzamuhammad@utexas.edu | hamza123      |
++------------+-----------+--------------+--------------+--------------------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ALL * FROM users;
++------------+-----------+------------------+--------------+--------------------------+----------------------------------+
+| first_name | last_name | company_name     | phone_number | email_address            | user_password                    |
++------------+-----------+------------------+--------------+--------------------------+----------------------------------+
+| Hamza      | Muhammad  | Facebook         | 512-850-7437 | hamzamuhammad@utexas.edu | hamza123                         |
+| Mussadaq   | Muhammad  | M&amp;N Graphics | 512-850-7201 | mmussadaq@gmail.com      | 46ccb5016db96209c7b89314be366fd0 |
++------------+-----------+------------------+--------------+--------------------------+----------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT ALL * FROM users;
++------------+-----------+------------------+--------------+--------------------------+----------------------------------+
+| first_name | last_name | company_name     | phone_number | email_address            | user_password                    |
++------------+-----------+------------------+--------------+--------------------------+----------------------------------+
+| Hamza      | Muhammad  | Facebook         | 512-850-7437 | hamzamuhammad@utexas.edu | hamza123                         |
+| Mussadaq   | Muhammad  | M&amp;N Graphics | 512-850-7201 | mmussadaq@gmail.com      | 46ccb5016db96209c7b89314be366fd0 |
+| Hamza      | Muhammad  | Allegra          | 123          | a@b.c                    | 8b9367c26392c95ae9a995bea7b2dc2e |
+| a          | b         | c                | d            | e@b                      | dfce434d264d02f248bfe564bbe9d19f |
+| a          | b         | c                | d            | ee@b                     | 8b9367c26392c95ae9a995bea7b2dc2e |
+| asdf       | asdf      | adsf             | asdf         | fasdf@23                 | 8b9367c26392c95ae9a995bea7b2dc2e |
+| k          | k         | k                | k            | k@2                      | ddcbae3797ec08fb6da535182c324d99 |
++------------+-----------+------------------+--------------+--------------------------+----------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> DELETE FROM users WHERE *;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*' at line 1
+mysql> DELETE FROM users WHERE first_name='k';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM users WHERE first_name='a';
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> DELETE FROM users WHERE first_name='Hamza';
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> DELETE FROM users WHERE first_name='asdf';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM users;
++------------+-----------+------------------+--------------+---------------------+----------------------------------+
+| first_name | last_name | company_name     | phone_number | email_address       | user_password                    |
++------------+-----------+------------------+--------------+---------------------+----------------------------------+
+| Mussadaq   | Muhammad  | M&amp;N Graphics | 512-850-7201 | mmussadaq@gmail.com | 46ccb5016db96209c7b89314be366fd0 |
++------------+-----------+------------------+--------------+---------------------+----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM files;
+ERROR 2006 (HY000): MySQL server has gone away
+No connection. Trying to reconnect...
+Connection id:    120
+Current database: accounts
+
+Empty set (1.04 sec)
+
+mysql> USE files;
+ERROR 1044 (42000): Access denied for user 'admin'@'localhost' to database 'files'
+mysql> DESCRIBE files;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| email_address | varchar(64) | NO   | PRI |         |       |
+| file_name     | varchar(8)  | YES  |     | NULL    |       |
+| date_uploaded | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> INSERT INTO files(email_address, file_name, date_uploaded)
+    -> VALUES('mmussadaq@gmail.com', 'file0001', '00000000001');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESCRIBE files;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| email_address | varchar(64) | NO   | PRI |         |       |
+| file_name     | varchar(8)  | YES  |     | NULL    |       |
+| date_uploaded | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+
+| email_address       | file_name | date_uploaded |
++---------------------+-----------+---------------+
+| mmussadaq@gmail.com | file0001  |             1 |
++---------------------+-----------+---------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE files ADD status VARCHAR(16);
+Query OK, 1 row affected (0.02 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE files
+    -> SET status='pending'
+    -> WHERE email_address='mmussadaq@gmail.com';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+
+| email_address       | file_name | date_uploaded | status  |
++---------------------+-----------+---------------+---------+
+| mmussadaq@gmail.com | file0001  |             1 | pending |
++---------------------+-----------+---------------+---------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO files(email_address, file_name, date_uploaded, status)
+    -> VALUES('mmussadaq@gmail.com', 'file0002', '00000000002', 'received');
+ERROR 1062 (23000): Duplicate entry 'mmussadaq@gmail.com' for key 'PRIMARY'
+mysql> SHOW files;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'files' at line 1
+mysql> DESCRIBE files;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| email_address | varchar(64) | NO   | PRI |         |       |
+| file_name     | varchar(8)  | YES  |     | NULL    |       |
+| date_uploaded | int(11)     | YES  |     | NULL    |       |
+| status        | varchar(16) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> ALTER TABLE files DROP PRIMARY KEY;
+Query OK, 1 row affected (0.02 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE files
+    -> ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| email_address | varchar(64) | NO   |     |         |       |
+| file_name     | varchar(8)  | YES  |     | NULL    |       |
+| date_uploaded | int(11)     | YES  |     | NULL    |       |
+| status        | varchar(16) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO files(email_address, file_name, date_uploaded, status)
+    -> VALUES('mmussadaq@gmail.com', 'file0002', '00000000002', 'received');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+----------+
+| email_address       | file_name | date_uploaded | status   |
++---------------------+-----------+---------------+----------+
+| mmussadaq@gmail.com | file0001  |             1 | pending  |
+| mmussadaq@gmail.com | file0002  |             2 | received |
++---------------------+-----------+---------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE files ADD comments VARCHAR(1024);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE files;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| email_address | varchar(64)   | NO   |     |         |       |
+| file_name     | varchar(8)    | YES  |     | NULL    |       |
+| date_uploaded | int(11)       | YES  |     | NULL    |       |
+| status        | varchar(16)   | YES  |     | NULL    |       |
+| comments      | varchar(1024) | YES  |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+----------+----------+
+| email_address       | file_name | date_uploaded | status   | comments |
++---------------------+-----------+---------------+----------+----------+
+| mmussadaq@gmail.com | file0001  |             1 | pending  | NULL     |
+| mmussadaq@gmail.com | file0002  |             2 | received | NULL     |
++---------------------+-----------+---------------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql>  UPDATE files
+    ->     -> SET status='pending'
+    -> \c
+mysql>  UPDATE files
+    ->     -> SET status='pending'
+    ->     -> SET status='pending'\c
+mysql> UPDATE files
+    -> SET comments='trash'
+    -> WHERE email_address='mmussadaq@gmail.com';
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+----------+----------+
+| email_address       | file_name | date_uploaded | status   | comments |
++---------------------+-----------+---------------+----------+----------+
+| mmussadaq@gmail.com | file0001  |             1 | pending  | trash    |
+| mmussadaq@gmail.com | file0002  |             2 | received | trash    |
++---------------------+-----------+---------------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+----------+----------+
+| email_address       | file_name | date_uploaded | status   | comments |
++---------------------+-----------+---------------+----------+----------+
+| mmussadaq@gmail.com | file0001  |             1 | pending  | trash    |
+| mmussadaq@gmail.com | file0002  |             2 | received | trash    |
++---------------------+-----------+---------------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> REMOVE * FROM files WHERE email_address="mmussadaq@gmail.com";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REMOVE * FROM files WHERE email_address="mmussadaq@gmail.com"' at line 1
+mysql> DELETE FROM files WHERE email_address="mmussadaq@gmail.com";
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+----------------+
+| email_address       | file_name | date_uploaded | status  | comments       |
++---------------------+-----------+---------------+---------+----------------+
+| mmussadaq@gmail.com | 2.txt     |             2 | pending | hi its dan     |
+| mmussadaq@gmail.com | 1.txt     |             1 | pending | hi this is bob |
+| mmussadaq@gmail.com | 3.txt     |             3 | pending | hi its dan     |
+| mmussadaq@gmail.com | 4.txt     |             4 | pending | hi its dan     |
+| mmussadaq@gmail.com | 5.txt     |             5 | pending | this is a test |
+| mmussadaq@gmail.com | 6.txt     |             6 | pending | 123            |
+| mmussadaq@gmail.com | 7.txt     |             7 | pending | 123            |
+| mmussadaq@gmail.com | 8.txt     |             8 | pending | 123            |
++---------------------+-----------+---------------+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+----------------+
+| email_address       | file_name | date_uploaded | status  | comments       |
++---------------------+-----------+---------------+---------+----------------+
+| mmussadaq@gmail.com | 2.txt     |             2 | pending | hi its dan     |
+| mmussadaq@gmail.com | 1.txt     |             1 | pending | hi this is bob |
+| mmussadaq@gmail.com | 3.txt     |             3 | pending | hi its dan     |
+| mmussadaq@gmail.com | 4.txt     |             4 | pending | hi its dan     |
+| mmussadaq@gmail.com | 5.txt     |             5 | pending | this is a test |
+| mmussadaq@gmail.com | 6.txt     |             6 | pending | 123            |
+| mmussadaq@gmail.com | 7.txt     |             7 | pending | 123            |
+| mmussadaq@gmail.com | 8.txt     |             8 | pending | 123            |
+| mmussadaq@gmail.com | 9.txt     |             9 | pending | 123            |
++---------------------+-----------+---------------+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> ALTER TABLE files ADD old_file_name VARCHAR(64);
+Query OK, 9 rows affected (0.02 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> DELETE FROM files WHERE email_address="mmussadaq@gmail.com";
+Query OK, 9 rows affected (0.00 sec)
+
+mysql> SELECT * FROM files;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+---------------------+---------------+
+| email_address       | file_name | date_uploaded | status  | comments            | old_file_name |
++---------------------+-----------+---------------+---------+---------------------+---------------+
+| mmussadaq@gmail.com | 10.txt    |            10 | pending | first test ever omg | test.txt      |
++---------------------+-----------+---------------+---------+---------------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> DELETE FROM files WHERE email_address="mmussadaq@gmail.com";
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+------------------+---------------+
+| email_address       | file_name | date_uploaded | status  | comments         | old_file_name |
++---------------------+-----------+---------------+---------+------------------+---------------+
+| mmussadaq@gmail.com | 11.txt    |            11 | pending | hi this is danrn | test.txt      |
++---------------------+-----------+---------------+---------+------------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+------------------+---------------+
+| email_address       | file_name | date_uploaded | status  | comments         | old_file_name |
++---------------------+-----------+---------------+---------+------------------+---------------+
+| mmussadaq@gmail.com | 11.txt    |            11 | pending | hi this is danrn | test.txt      |
++---------------------+-----------+---------------+---------+------------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+------------------+---------------+
+| email_address       | file_name | date_uploaded | status  | comments         | old_file_name |
++---------------------+-----------+---------------+---------+------------------+---------------+
+| mmussadaq@gmail.com | 11.txt    |            11 | pending | hi this is danrn | test.txt      |
++---------------------+-----------+---------------+---------+------------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+----------+---------------+
+| email_address       | file_name | date_uploaded | status  | comments | old_file_name |
++---------------------+-----------+---------------+---------+----------+---------------+
+| mmussadaq@gmail.com | 11.txt    |            11 | pending |          | test.txt      |
++---------------------+-----------+---------------+---------+----------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+----------+---------------+
+| email_address       | file_name | date_uploaded | status  | comments | old_file_name |
++---------------------+-----------+---------------+---------+----------+---------------+
+| mmussadaq@gmail.com | 11.txt    |            11 | pending |          | test.txt      |
++---------------------+-----------+---------------+---------+----------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM files;
++---------------------+-----------+---------------+---------+----------+---------------+
+| email_address       | file_name | date_uploaded | status  | comments | old_file_name |
++---------------------+-----------+---------------+---------+----------+---------------+
+| mmussadaq@gmail.com | 11.txt    |            11 | pending |          | test.txt      |
++---------------------+-----------+---------------+---------+----------+---------------+
+1 row in set (0.00 sec)
+
+mysql>

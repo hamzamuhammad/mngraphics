@@ -10,3 +10,17 @@ body {
 .centercontents {
     text-align: center !important;
 }
+
+a { 
+	color: inherit; 
+} 
+
+a:hover
+{   
+	text-decoration: none;
+	color: white;
+}
+
+textarea {
+   resize: none;
+}

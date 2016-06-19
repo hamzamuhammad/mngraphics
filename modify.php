@@ -24,7 +24,7 @@
     $new_file_name = $_FILES['file']['name'];
 
     if (isset($_POST['update'])) { //if we want to update order
-        if ($_FILES['file']['name'] != "") { //if file was chosen, 
+        if (!($_FILES['file']['name'] === "")) { //if file was chosen, 
             $query = "UPDATE files SET old_file_name='$new_file_name' WHERE file_name='$file_name'";
             $connection->query($query);
             //$query->close(); //HAVE TO EVENTUALLY FIX THIS

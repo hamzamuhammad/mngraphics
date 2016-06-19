@@ -1,24 +1,33 @@
-<?php //refresh.php update the session variables for the orders table
-	session_start();
+<?php //update.php either deletes the order or updates the condition (MUST ALSO EMAIL CUSTOMER AS WELL)
+	
+	$array = array("pending", "received", "on hold", "in progress", "completed");
+    $file_name = "";
+    $status = "";
 
-	$email_address = "";
-    if (isset($_SESSION['email_address'])) {
-      $email_address = $_SESSION['email_address'];
+    if (isset($_POST['file_name']) && isset($_POST['status'])) {
+        $file_name = sanitizeString($_POST['file_name']); 
+        $status = $array[intval(sanitizeString($_POST['status']))];
     }
 
 	require_once 'login.php';
     $connection = new mysqli($db_hostname, $db_username, $db_password, $db_database);
     if ($connection->connect_error) die($connection->connect_error);
 
+	if (isset($_POST['update'])) {
+		$query = "UPDATE files SET status='$status' WHERE file_name='$file_name'";
+		$connection->query($query);
+		echo '<div class="alert alert-success">Successfully updated order!</div>';
+   	 	echo '<script>setTimeout(function(){window.location.href="../../console.php"},2000);</script>';
+	}
+	else if (isset($_POST['delete'])) {
+        $query = "DELETE FROM files WHERE file_name='$file_name'";
+      	$connection->query($query);
+        echo '<div class="alert alert-success">Successfully deleted order!</div>';
+   	 	echo '<script>setTimeout(function(){window.location.href="../../console.php"},2000);</script>';
+	}
+	//WE NEED TO SEND AN EMAIL TO THE CUSTOMER REGARDING ANY OF THESE CHANGES!
+	$connection->close();
 
-    $orders = format_table($connection, $email_address);
-    $_SESSION['orders'] = $orders;
-
-   	echo '<div class="alert alert-success">Refreshing...</div>';
-    echo '<script>setTimeout(function(){window.location.href="../../home.php"},1000);</script>';
-
-    $connection->close();
-	
 echo <<<_END
 <html lang="en">
   <head>
@@ -71,33 +80,10 @@ echo <<<_END
 </html>
 _END;
 
-    function format_table($connection, $email_address) {
-    	$array = array();
-    	$query = "SELECT * FROM files WHERE email_address='$email_address'";
-    	$result = $connection->query($query);
-    	if (!$result) die ($connection->error);
-    	for ($i = 0; $i < $result->num_rows; $i++) {
-    		$row = $result->fetch_array(MYSQLI_NUM);
-    		$new_array = array($row[1], $row[2], $row[3], $row[4], $row[5]);
-    		array_push($array, $new_array);
-    	}
-    	return $array;
-    }
-
-	function get_post($connection, $var) {
-		return $connection->real_escape_string($_POST[$var]);
-	}
-
 	function sanitizeString($var) {
 		$var = stripslashes($var);
 		$var = htmlentities($var);
 		$var = strip_tags($var);
-		return $var;
-	}
-
-	function sanitizeMySQL($connection, $var) {
-		$var = $connection->real_escape_string($var);
-		$var = sanitizeString($var);
 		return $var;
 	}
 ?>

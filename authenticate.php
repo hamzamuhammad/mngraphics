@@ -28,13 +28,20 @@
      		$token = hash('ripemd128', "$salt1$password$salt2");
      		if ($token == $row[5]) {
      			//have to use hidden fields here/make a session
-     			session_start();
-     			$_SESSION['first_name'] = $row[0];
-     			$_SESSION['last_name'] = $row[1];
-     			$_SESSION['email_address'] = $row[4];
-     			$_SESSION['orders'] = format_table($connection, $email_address);
+          if ($email_address !== "admin@mngraphicsolutions.com") {
+       			session_start();
+       			$_SESSION['first_name'] = $row[0];
+       			$_SESSION['last_name'] = $row[1];
+       			$_SESSION['email_address'] = $row[4];
+       			$_SESSION['orders'] = format_table($connection, $email_address);
+          }
      			echo '<div class="alert alert-success">Successfully signed in!</div>';
-      			echo '<script>setTimeout(function(){window.location.href="../../home.php"},2000);</script>';
+          if ($email_address === "admin@mngraphicsolutions.com") {//admin account
+      		  echo '<script>setTimeout(function(){window.location.href="../../console.php"},2000);</script>';
+          }
+          else {
+            echo '<script>setTimeout(function(){window.location.href="../../home.php"},2000);</script>';
+          }
      		}
      		else {
      			echo '<div class="alert alert-danger">Invalid email and password.</div>';

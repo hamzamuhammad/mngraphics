@@ -1,0 +1,3 @@
+<?php //update.php either deletes the order or updates the condition (MUST ALSO EMAIL CUSTOMER AS WELL)
+
+?>

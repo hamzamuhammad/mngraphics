@@ -1,5 +1,4 @@
 <?php //upload.php
-
     session_start();
 
     $email_address = "";
@@ -11,7 +10,7 @@
 	$connection = new mysqli($db_hostname, $db_username, $db_password, $db_database);
 	if ($connection->connect_error) die($connection->connect_error);
 
-	if (!($_FILES['file']['name'] === "")) {
+	if (!($_FILES['file']['name'] === "") && isset($_POST['comments'])) {
 		$comments = sanitizeMySQL($connection, $_POST['comments']); 
         $old_file_name = $_FILES['file']['name'];
 		$fh = fopen("count.txt", 'r+') or die("File does not exist or you lack permission to open it");
